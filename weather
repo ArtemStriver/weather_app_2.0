@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
+from pathlib import Path
 from exceptions import CantGetCoordinates, ApiServiceError
 from gps_coordinates import get_gps_coordinate
+from history import save_weather, JSONFileWeatherStorage
 from weather_api_service import get_weather_data
 from weather_formatter import get_weather_format
 
@@ -18,6 +20,11 @@ def main():
         print(f'Не удалось получить погоду по заданным координатам {coordinates}.')
         exit(1)
     print(get_weather_format(weather_data))
+
+    save_weather(
+        weather=weather_data,
+        storage=JSONFileWeatherStorage(Path.cwd() / 'history.json')
+    )
 
 
 if __name__ == '__main__':
