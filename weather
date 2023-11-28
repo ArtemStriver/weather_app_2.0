@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+from exceptions import CantGetCoordinates, ApiServiceError
+from gps_coordinates import get_gps_coordinate
+from weather_api_service import get_weather_data
+from weather_formatter import get_weather_format
+
+
+def main():
+    """Основное приложение погоды 2.0"""
+    try:
+        coordinates = get_gps_coordinate()
+    except CantGetCoordinates:
+        print('Не удалось получить GPS координаты.')
+        exit(1)
+    try:
+        weather_data = get_weather_data(coordinates)
+    except ApiServiceError:
+        print(f'Не удалось получить погоду по заданным координатам {coordinates}.')
+        exit(1)
+    print(get_weather_format(weather_data))
+
+
+if __name__ == '__main__':
+    main()
