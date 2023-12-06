@@ -3,8 +3,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import TypedDict
 
-from weather_api_service import Weather
-from weather_formatter import get_weather_format
+from app.weather_api_service import Weather
+from app.weather_formatter import format_weather
 
 
 class WeatherStorage:
@@ -22,7 +22,7 @@ class PlainFileWeatherStorage(WeatherStorage):
 
     def save(self, weather: Weather) -> None:
         now = datetime.now()
-        formatted_weather = get_weather_format(weather)
+        formatted_weather = format_weather(weather)
         with open(self._file, mode='a') as f:
             f.write(f'{now}\n{formatted_weather}\n')
 
@@ -43,7 +43,7 @@ class JSONFileWeatherStorage(WeatherStorage):
         history = self._read_history()
         history.append({
             'date': str(datetime.now()),
-            'weather': get_weather_format(weather)
+            'weather': format_weather(weather)
         })
         self._write(history)
 

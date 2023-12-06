@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from weather_api_service import Weather, WeatherType
+from app.weather_api_service import Weather, WeatherType
 
 
-def get_weather_format(weather: Weather) -> str:
+def format_weather(weather: Weather) -> str:
     """Модуль форматирования данных о погоде к единому виду."""
     return (f'{weather.city}, температура {weather.temperature}°C, '
             f'{weather.weather_type.value}\n'
@@ -12,7 +12,7 @@ def get_weather_format(weather: Weather) -> str:
 
 
 if __name__ == '__main__':
-    print(get_weather_format(Weather(
+    print(format_weather(Weather(
         temperature=-25,
         weather_type=WeatherType.CLEAR,
         sunrise=datetime.fromisoformat('2023-12-01 08:00:00'),

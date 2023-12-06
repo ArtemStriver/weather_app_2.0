@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 from pathlib import Path
-from exceptions import CantGetCoordinates, ApiServiceError
-from gps_coordinates import get_gps_coordinate
-from history import save_weather, JSONFileWeatherStorage
-from weather_api_service import get_weather_data
-from weather_formatter import get_weather_format
+from settings.exceptions import CantGetCoordinates, ApiServiceError
+from app.gps_coordinates import get_gps_coordinate
+from app.save_history import save_weather, JSONFileWeatherStorage
+from app.weather_api_service import get_weather_data
+from app.weather_formatter import format_weather
 
 
 def main():
-    """Основное приложение погоды 2.0"""
+    """Запуск приложение погоды 2.0"""
     try:
         coordinates = get_gps_coordinate()
     except CantGetCoordinates:
@@ -19,7 +19,7 @@ def main():
     except ApiServiceError:
         print(f'Не удалось получить погоду по заданным координатам {coordinates}.')
         exit(1)
-    print(get_weather_format(weather_data))
+    print(format_weather(weather_data))
 
     save_weather(
         weather=weather_data,

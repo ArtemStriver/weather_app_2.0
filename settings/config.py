@@ -1,5 +1,5 @@
 USE_ROUNDED_COORDS = False
-OPENWEATHER_API = "6458174fba0708611deace21f1e29b77"
+OPENWEATHER_API = "вставьте_ваш_api_ключ_от_openweather"
 OPENWEATHER_URL = (
         'https://api.openweathermap.org/data/2.5/weather?'
         'lat={latitude}&lon={longitude}'

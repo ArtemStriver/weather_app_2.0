@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from urllib.error import URLError
 from urllib.request import urlopen
 
-from exceptions import CantGetCoordinates
-from config import USE_ROUNDED_COORDS
+from settings.exceptions import CantGetCoordinates
+from settings.config import USE_ROUNDED_COORDS
 
 
 @dataclass(slots=True, frozen=True)

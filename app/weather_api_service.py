@@ -1,17 +1,16 @@
 import json
-import ssl
 import urllib.request
 from datetime import datetime
 from enum import Enum
 from json import JSONDecodeError
-from typing import NamedTuple, Literal
+from typing import NamedTuple, Literal, TypeAlias
 from urllib.error import URLError
 
-import config
-from exceptions import ApiServiceError
-from gps_coordinates import Coordinates
+from settings.config import OPENWEATHER_URL
+from settings.exceptions import ApiServiceError
+from app.gps_coordinates import Coordinates
 
-Celsius = float
+Celsius: TypeAlias = float
 
 
 class WeatherType(Enum):
@@ -41,8 +40,7 @@ def get_weather_data(coordinates: Coordinates) -> Weather:
 
 
 def _get_openweather_response(latitude: float, longitude: float) -> str:
-    # ssl._create_default_https_context = ssl._create_unverified_context
-    url = config.OPENWEATHER_URL.format(latitude=latitude, longitude=longitude)
+    url = OPENWEATHER_URL.format(latitude=latitude, longitude=longitude)
     try:
         return urllib.request.urlopen(url).read()
     except URLError:
